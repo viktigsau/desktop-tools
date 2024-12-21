@@ -35,3 +35,10 @@ class Config:
         except KeyError:
             set(key, st_value)
             return self.get(key)
+    
+    def __contains__(self, key):
+        try:
+            self.get(key)
+            return True
+        except KeyError:
+            return False

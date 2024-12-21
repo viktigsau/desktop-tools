@@ -16,14 +16,16 @@ except OSError:
 
 def startTool(tool: dict):
     path = os.path.abspath(tool["path"])
-    subprocess.run([path])
+    subprocess.run([path, config.get("user")])
 
 def main():
     for tool in config.get("tools"):
+        print("starting:", tool["name"])
         startTool(tool)
     
     while True:
         time.sleep(1)
 
 if __name__ == '__main__':
+    print("starting...")
     main()

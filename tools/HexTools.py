@@ -5,7 +5,11 @@ import pyperclip
 import time
 import sys
 import os
-sys.path.append(f'/home/{os.getlogin()}/Desktop/Private/desktop-tools')
+try:
+    sys.path.append(f'/home/{sys.argv[1]}/Desktop/Private/desktop-tools')
+except IndexError:
+    print("please include a user")
+    exit(-1)
 from config import Config
 
 

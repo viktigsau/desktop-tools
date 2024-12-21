@@ -51,7 +51,10 @@ def install():
 
     with open(f'/etc/systemd/system/{service}', 'w') as f:
         with open(f'{service}') as service_file:
-            f.write(service_file.read().replace('__dir__', destination))
+            f.write(service_file.read()
+                    .replace('__dir__', destination)
+                    .replace('__out__', os.path.join(destination, "out.log")
+                    .replace('__err__', os.path.join(destination, "err.log"))))
 
     os.system(f'systemctl daemon-reload')
     os.system(f'systemctl enable {service}')
