@@ -16,7 +16,17 @@ except OSError:
 
 def startTool(tool: dict):
     path = os.path.abspath(tool["path"])
-    subprocess.run([path, config.get("user")])
+    try:
+        subprocess.run([path, config.get("user")])
+    except FileNotFoundError:
+        tools = config.get("tools")
+    if not tools:
+        print("No tools found in the configuration.")
+        return
+
+    for tool in tools:
+        print("starting:", tool["name"])
+        startTool(tool)
 
 def main():
     for tool in config.get("tools"):

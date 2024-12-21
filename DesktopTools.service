@@ -7,7 +7,6 @@ WorkingDirectory=__dir__
 ExecStart=__dir__/main.py
 Restart=always
 StandardOutput=append:__out__
-StandardError=append:__err__
 
 [Install]
 WantedBy=multi-user.target
