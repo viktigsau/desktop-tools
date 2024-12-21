@@ -1,0 +1,11 @@
+[Unit]
+Description=Desktop Tools
+After=network.target
+
+[Service]
+WorkingDirectory=__dir__
+ExecStart=__dir__/main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

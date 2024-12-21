@@ -1,0 +1,16 @@
+{
+    "service": "DesktopTools.service",
+    "tools": [
+        {
+            "name": "HexTools",
+            "path": "tools/HexTools.py"
+        }
+    ],
+    "HexTools": {
+        "keyBinds": {
+            "write": "ctrl+f8",
+            "inspect": "ctrl+f9"
+        },
+        "Encoding": "utf-8"
+    }
+}
