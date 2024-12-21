@@ -6,7 +6,10 @@ import time
 import sys
 import os
 sys.path.append(f'/home/{os.getlogin()}/Desktop/Private/desktop-tools')
-import config
+from config import Config
+
+
+config = Config('config.json')
 
 def main():
     def to_hex(hex: bytes | None=None, text: str | None=None, split: int=1, encoding: str |None=None):

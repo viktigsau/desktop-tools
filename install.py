@@ -2,10 +2,12 @@
 
 import os
 import sys
-import config
+from config import Config
 import subprocess
 import stat
 
+
+config = Config('config.json')
 
 try:
     user = sys.argv[1]
@@ -39,6 +41,10 @@ def install():
         print(f"Permissions for '{destination}' have been set.")
     except Exception as e:
         print(f"Failed to set permissions: {e}")
+    
+    new_config = Config(os.path.join(destination, "config.json"))
+
+    new_config.set("user", user)
 
     service = config.get('service')
     os.system(f'touch /etc/systemd/system/{service}')

@@ -1,35 +1,37 @@
 import json
 
-path = 'config.json'
+class Config:
+    def __init__(self, path: str='config.json'):
+        self.path = path
 
-def get(key):
-    with open(path) as f:
-        data = json.load(f)
-    keys = key.split('.')
+    def get(self, key):
+        with open(self.path) as f:
+            data = json.load(f)
+        keys = key.split('.')
 
-    for k in keys:
-        data = data[k]
-    return data
+        for k in keys:
+            data = data[k]
+        return data
 
-def set(key, value):
-    with open(path) as f:
-        data = json.load(f)
-    keys = key.split('.')
-    last_key = keys.pop()
-    new_data = data
-    for k in keys:
+    def set(self, key, value):
+        with open(self.path) as f:
+            data = json.load(f)
+        keys = key.split('.')
+        last_key = keys.pop()
+        new_data = data
+        for k in keys:
+            try:
+                new_data = new_data[k]
+            except KeyError:
+                new_data[k] = {}
+                new_data = new_data[k]
+        new_data[last_key] = value
+        with open(self.path, 'w') as f:
+            json.dump(data, f, indent=4)
+
+    def enshure(self, key, st_value=None):
         try:
-            new_data = new_data[k]
+            return self.get(key)
         except KeyError:
-            new_data[k] = {}
-            new_data = new_data[k]
-    new_data[last_key] = value
-    with open(path, 'w') as f:
-        json.dump(data, f, indent=4)
-
-def enshure(key, st_value=None):
-    try:
-        return get(key)
-    except KeyError:
-        set(key, st_value)
-        return get(key)
+            set(key, st_value)
+            return self.get(key)
